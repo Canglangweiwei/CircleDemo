@@ -15,6 +15,7 @@ import java.io.File;
  * @Description: TODO(这里用一句话描述这个类的作用)
  * @date 2015-12-28 下午4:21:08
  */
+@SuppressWarnings("ALL")
 public class MyApplication extends Application {
 
     // 默认存放图片的路径

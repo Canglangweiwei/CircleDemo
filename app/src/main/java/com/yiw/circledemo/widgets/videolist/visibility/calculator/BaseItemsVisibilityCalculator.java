@@ -8,14 +8,17 @@ import com.yiw.circledemo.widgets.videolist.visibility.scroll.ScrollDirectionDet
 
 /**
  * This class encapsulates some basic logic of Visibility calculator.
- * In onScroll event it calculates Scroll direction using {@link com.waynell.videolist.visibility.scroll.ScrollDirectionDetector}
+ * In onScroll event it calculates Scroll direction using
  * and then calls appropriate methods
  *
  * @author Wayne
  */
-public abstract class BaseItemsVisibilityCalculator implements ListItemsVisibilityCalculator{
+@SuppressWarnings("ALL")
+public abstract class BaseItemsVisibilityCalculator implements ListItemsVisibilityCalculator {
 
-    /** Initial scroll direction should be UP in order to set as active most top item if no active item yet*/
+    /**
+     * Initial scroll direction should be UP in order to set as active most top item if no active item yet
+     */
     protected ScrollDirectionDetector.ScrollDirection mScrollDirection = ScrollDirectionDetector.ScrollDirection.UP;
 
     protected final ItemsPositionGetter mPositionGetter;
@@ -26,11 +29,11 @@ public abstract class BaseItemsVisibilityCalculator implements ListItemsVisibili
 
     private final ScrollDirectionDetector mScrollDirectionDetector = new ScrollDirectionDetector(
             new ScrollDirectionDetector.OnDetectScrollListener() {
-        @Override
-        public void onScrollDirectionChanged(ScrollDirectionDetector.ScrollDirection scrollDirection) {
-            mScrollDirection = scrollDirection;
-        }
-    });
+                @Override
+                public void onScrollDirectionChanged(ScrollDirectionDetector.ScrollDirection scrollDirection) {
+                    mScrollDirection = scrollDirection;
+                }
+            });
 
     @Override
     public void onScrolled(int scrollState) {
@@ -55,5 +58,4 @@ public abstract class BaseItemsVisibilityCalculator implements ListItemsVisibili
     public abstract void onStateLost();
 
     protected abstract void onStateTouchScroll(ItemsPositionGetter itemsPositionGetter);
-
 }

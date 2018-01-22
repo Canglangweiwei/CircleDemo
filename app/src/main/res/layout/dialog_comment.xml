@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/copyTv"
@@ -15,13 +15,14 @@
         android:paddingLeft="10dip"
         android:paddingTop="15dip"
         android:text="复制"
-        android:textSize="16sp"
-        android:textColor="@color/color_232323" />
+        android:textColor="@color/color_232323"
+        android:textSize="16sp" />
 
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="1px"
         android:background="@drawable/basic_skin_icon_dot_gray"
+        android:contentDescription="@string/app_name"
         android:scaleType="fitXY" />
 
     <TextView
@@ -34,7 +35,6 @@
         android:paddingLeft="10dip"
         android:paddingTop="15dip"
         android:text="删除"
-        android:textSize="16sp" 
-        android:textColor="@color/color_232323"/>
-
+        android:textColor="@color/color_232323"
+        android:textSize="16sp" />
 </LinearLayout>

@@ -63,7 +63,6 @@ public class ListItemData {
 
         return (mIndexInAdapter != null ? mIndexInAdapter.equals(that.mIndexInAdapter) : that.mIndexInAdapter == null)
                 && (mView != null ? mView.equals(that.mView) : that.mView == null);
-
     }
 
     @Override

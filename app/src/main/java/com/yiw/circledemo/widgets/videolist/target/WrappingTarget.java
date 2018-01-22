@@ -11,6 +11,7 @@ import com.bumptech.glide.request.target.Target;
  * @author Wayne
  */
 public class WrappingTarget<Z> implements Target<Z> {
+
     protected final Target<Z> target;
 
     public WrappingTarget(Target<Z> target) {

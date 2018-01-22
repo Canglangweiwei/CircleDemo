@@ -4,13 +4,13 @@ import android.view.View;
 
 import com.yiw.circledemo.widgets.videolist.visibility.items.ListItem;
 
-
 /**
  * Default implementation. You can override it and intercept switching between active items
  *
  * @author Wayne
  */
-public class DefaultSingleItemCalculatorCallback implements SingleListViewItemActiveCalculator.Callback<ListItem>{
+@SuppressWarnings("ALL")
+public class DefaultSingleItemCalculatorCallback implements SingleListViewItemActiveCalculator.Callback<ListItem> {
 
     @Override
     public void activateNewCurrentItem(ListItem newListItem, View newView, int newViewPosition) {

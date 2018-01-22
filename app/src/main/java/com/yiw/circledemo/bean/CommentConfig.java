@@ -1,17 +1,16 @@
 package com.yiw.circledemo.bean;
 
-/**
- * Created by yiwei on 16/3/2.
- */
+@SuppressWarnings("ALL")
 public class CommentConfig {
-    public static enum Type{
+
+    public enum Type {
         PUBLIC("public"), REPLY("reply");
 
         private String value;
-        private Type(String value){
+
+        private Type(String value) {
             this.value = value;
         }
-
     }
 
     public int circlePosition;
@@ -22,7 +21,7 @@ public class CommentConfig {
     @Override
     public String toString() {
         String replyUserStr = "";
-        if(replyUser != null){
+        if (replyUser != null) {
             replyUserStr = replyUser.toString();
         }
         return "circlePosition = " + circlePosition

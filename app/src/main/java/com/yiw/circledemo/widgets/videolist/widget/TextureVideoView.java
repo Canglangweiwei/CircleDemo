@@ -1,6 +1,5 @@
 package com.yiw.circledemo.widgets.videolist.widget;
 
-
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.SurfaceTexture;
@@ -26,6 +25,7 @@ import java.io.IOException;
  *
  * @author Wayne
  */
+@SuppressWarnings("ALL")
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class TextureVideoView extends ScalableTextureView
         implements TextureView.SurfaceTextureListener,
@@ -41,14 +41,14 @@ public class TextureVideoView extends ScalableTextureView
     private static final boolean SHOW_LOGS = true;
 
     private volatile int mCurrentState = STATE_IDLE;
-    private volatile int mTargetState  = STATE_IDLE;
+    private volatile int mTargetState = STATE_IDLE;
 
-    private static final int STATE_ERROR              = -1;
-    private static final int STATE_IDLE               = 0;
-    private static final int STATE_PREPARING          = 1;
-    private static final int STATE_PREPARED           = 2;
-    private static final int STATE_PLAYING            = 3;
-    private static final int STATE_PAUSED             = 4;
+    private static final int STATE_ERROR = -1;
+    private static final int STATE_IDLE = 0;
+    private static final int STATE_PREPARING = 1;
+    private static final int STATE_PREPARED = 2;
+    private static final int STATE_PLAYING = 3;
+    private static final int STATE_PAUSED = 4;
     private static final int STATE_PLAYBACK_COMPLETED = 5;
 
     private static final int MSG_START = 0x0001;
@@ -69,18 +69,24 @@ public class TextureVideoView extends ScalableTextureView
     private boolean mHasAudio;
 
     private static final HandlerThread sThread = new HandlerThread("VideoPlayThread");
+
     static {
         sThread.start();
     }
 
     public interface MediaPlayerCallback {
         void onPrepared(MediaPlayer mp);
+
         void onStoped(MediaPlayer mp);
+
         void onCompletion(MediaPlayer mp);
+
         void onBufferingUpdate(MediaPlayer mp, int percent);
+
         void onVideoSizeChanged(MediaPlayer mp, int width, int height);
 
         boolean onInfo(MediaPlayer mp, int what, int extra);
+
         boolean onError(MediaPlayer mp, int what, int extra);
     }
 
@@ -112,33 +118,33 @@ public class TextureVideoView extends ScalableTextureView
             switch (msg.what) {
 
                 case MSG_START:
-                    if(SHOW_LOGS) Log.i(TAG, "<< handleMessage init");
+                    if (SHOW_LOGS) Log.i(TAG, "<< handleMessage init");
                     openVideo();
-                    if(SHOW_LOGS) Log.i(TAG, ">> handleMessage init");
+                    if (SHOW_LOGS) Log.i(TAG, ">> handleMessage init");
                     break;
 
 
                 case MSG_PAUSE:
-                    if(SHOW_LOGS) Log.i(TAG, "<< handleMessage pause");
-                    if(mMediaPlayer != null) {
+                    if (SHOW_LOGS) Log.i(TAG, "<< handleMessage pause");
+                    if (mMediaPlayer != null) {
                         mMediaPlayer.pause();
                     }
                     mCurrentState = STATE_PAUSED;
-                    if(SHOW_LOGS) Log.i(TAG, ">> handleMessage pause");
+                    if (SHOW_LOGS) Log.i(TAG, ">> handleMessage pause");
                     break;
 
                 case MSG_STOP:
-                    if(SHOW_LOGS) Log.i(TAG, "<< handleMessage stop");
+                    if (SHOW_LOGS) Log.i(TAG, "<< handleMessage stop");
                     mHandler.post(new Runnable() {
                         @Override
                         public void run() {
-                            if(mMediaPlayerCallback != null) {
+                            if (mMediaPlayerCallback != null) {
                                 mMediaPlayerCallback.onStoped(mMediaPlayer);
                             }
                         }
                     });
                     release(true);
-                    if(SHOW_LOGS) Log.i(TAG, ">> handleMessage stop");
+                    if (SHOW_LOGS) Log.i(TAG, ">> handleMessage stop");
                     break;
 
             }
@@ -149,12 +155,11 @@ public class TextureVideoView extends ScalableTextureView
     private void init() {
         mContext = getContext();
         mCurrentState = STATE_IDLE;
-        mTargetState  = STATE_IDLE;
+        mTargetState = STATE_IDLE;
         mHandler = new Handler();
         mVideoHandler = new Handler(sThread.getLooper(), this);
         setSurfaceTextureListener(this);
     }
-
 
     // release the media player in any state
     private void release(boolean cleartargetstate) {
@@ -164,7 +169,7 @@ public class TextureVideoView extends ScalableTextureView
             mMediaPlayer = null;
             mCurrentState = STATE_IDLE;
             if (cleartargetstate) {
-                mTargetState  = STATE_IDLE;
+                mTargetState = STATE_IDLE;
             }
 //            AudioManager am = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
 //            am.abandonAudioFocus(null);
@@ -203,7 +208,7 @@ public class TextureVideoView extends ScalableTextureView
             mCurrentState = STATE_PREPARING;
             mTargetState = STATE_PREPARING;
 
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 MediaExtractor mediaExtractor = new MediaExtractor();
                 mediaExtractor.setDataSource(mContext, mUri, null);
                 MediaFormat format;
@@ -216,34 +221,32 @@ public class TextureVideoView extends ScalableTextureView
                         break;
                     }
                 }
-            }
-            else {
+            } else {
                 mHasAudio = true;
             }
-
         } catch (IOException ex) {
-            if(SHOW_LOGS) Log.w(TAG, "Unable to open content: " + mUri, ex);
+            if (SHOW_LOGS) Log.w(TAG, "Unable to open content: " + mUri, ex);
             mCurrentState = STATE_ERROR;
             mTargetState = STATE_ERROR;
             if (mMediaPlayerCallback != null) {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        if(mMediaPlayerCallback != null) {
+                        if (mMediaPlayerCallback != null) {
                             mMediaPlayerCallback.onError(mMediaPlayer, MediaPlayer.MEDIA_ERROR_UNKNOWN, 0);
                         }
                     }
                 });
             }
         } catch (IllegalArgumentException ex) {
-            if(SHOW_LOGS) Log.w(TAG, "Unable to open content: " + mUri, ex);
+            if (SHOW_LOGS) Log.w(TAG, "Unable to open content: " + mUri, ex);
             mCurrentState = STATE_ERROR;
             mTargetState = STATE_ERROR;
             if (mMediaPlayerCallback != null) {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        if(mMediaPlayerCallback != null) {
+                        if (mMediaPlayerCallback != null) {
                             mMediaPlayerCallback.onError(mMediaPlayer, MediaPlayer.MEDIA_ERROR_UNKNOWN, 0);
                         }
                     }
@@ -255,8 +258,8 @@ public class TextureVideoView extends ScalableTextureView
     @Override
     public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
         mSurface = new Surface(surface);
-        if(mTargetState == STATE_PLAYING) {
-            if(SHOW_LOGS) Log.i(TAG, "onSurfaceTextureAvailable start");
+        if (mTargetState == STATE_PLAYING) {
+            if (SHOW_LOGS) Log.i(TAG, "onSurfaceTextureAvailable start");
             start();
         }
     }
@@ -283,7 +286,7 @@ public class TextureVideoView extends ScalableTextureView
     }
 
     public void setVideoURI(Uri uri) {
-        if(SHOW_LOGS) Log.i(TAG, "setVideoURI " + uri.toString());
+        if (SHOW_LOGS) Log.i(TAG, "setVideoURI " + uri.toString());
         mUri = uri;
     }
 
@@ -294,7 +297,7 @@ public class TextureVideoView extends ScalableTextureView
             mVideoHandler.obtainMessage(MSG_STOP).sendToTarget();
         }
 
-        if(mUri != null && mSurface != null) {
+        if (mUri != null && mSurface != null) {
             mVideoHandler.obtainMessage(MSG_START).sendToTarget();
         }
     }
@@ -318,7 +321,7 @@ public class TextureVideoView extends ScalableTextureView
     public void stop() {
         mTargetState = STATE_PLAYBACK_COMPLETED;
 
-        if(isInPlaybackState()) {
+        if (isInPlaybackState()) {
             mVideoHandler.obtainMessage(MSG_STOP).sendToTarget();
         }
     }
@@ -328,7 +331,7 @@ public class TextureVideoView extends ScalableTextureView
     }
 
     public void mute() {
-        if(mMediaPlayer != null) {
+        if (mMediaPlayer != null) {
             mMediaPlayer.setVolume(0, 0);
             mSoundMute = true;
         }
@@ -368,7 +371,7 @@ public class TextureVideoView extends ScalableTextureView
             mHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    if(mMediaPlayerCallback != null) {
+                    if (mMediaPlayerCallback != null) {
                         mMediaPlayerCallback.onCompletion(mp);
                     }
                 }
@@ -378,25 +381,26 @@ public class TextureVideoView extends ScalableTextureView
 
     @Override
     public boolean onError(final MediaPlayer mp, final int what, final int extra) {
-        if(SHOW_LOGS) Log.e(TAG, "onError() called with " + "mp = [" + mp + "], what = [" + what + "], extra = [" + extra + "]");
+        if (SHOW_LOGS)
+            Log.e(TAG, "onError() called with " + "mp = [" + mp + "], what = [" + what + "], extra = [" + extra + "]");
         mCurrentState = STATE_ERROR;
         mTargetState = STATE_ERROR;
         if (mMediaPlayerCallback != null) {
             mHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    if(mMediaPlayerCallback != null) {
+                    if (mMediaPlayerCallback != null) {
                         mMediaPlayerCallback.onError(mp, what, extra);
                     }
                 }
             });
         }
-        return true ;
+        return true;
     }
 
     @Override
     public void onPrepared(final MediaPlayer mp) {
-        if(SHOW_LOGS) Log.i(TAG, "onPrepared " + mUri.toString());
+        if (SHOW_LOGS) Log.i(TAG, "onPrepared " + mUri.toString());
         if (mTargetState != STATE_PREPARING || mCurrentState != STATE_PREPARING) {
             return;
         }
@@ -414,7 +418,7 @@ public class TextureVideoView extends ScalableTextureView
             mHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    if(mMediaPlayerCallback != null) {
+                    if (mMediaPlayerCallback != null) {
                         mMediaPlayerCallback.onPrepared(mp);
                     }
                 }
@@ -428,7 +432,7 @@ public class TextureVideoView extends ScalableTextureView
             mHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    if(mMediaPlayerCallback != null) {
+                    if (mMediaPlayerCallback != null) {
                         mMediaPlayerCallback.onVideoSizeChanged(mp, width, height);
                     }
                 }
@@ -442,7 +446,7 @@ public class TextureVideoView extends ScalableTextureView
             mHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    if(mMediaPlayerCallback != null) {
+                    if (mMediaPlayerCallback != null) {
                         mMediaPlayerCallback.onBufferingUpdate(mp, percent);
                     }
                 }
@@ -456,7 +460,7 @@ public class TextureVideoView extends ScalableTextureView
             mHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    if(mMediaPlayerCallback != null) {
+                    if (mMediaPlayerCallback != null) {
                         mMediaPlayerCallback.onInfo(mp, what, extra);
                     }
                 }

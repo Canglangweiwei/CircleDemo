@@ -4,7 +4,6 @@ import android.media.MediaPlayer;
 
 import com.yiw.circledemo.widgets.videolist.widget.TextureVideoView;
 
-
 /**
  * @author Wayne
  */

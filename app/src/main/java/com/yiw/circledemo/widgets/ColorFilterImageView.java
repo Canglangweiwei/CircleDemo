@@ -10,14 +10,14 @@ import android.view.View.OnTouchListener;
 import android.widget.ImageView;
 
 /**
- *
+ * @author hnclca
  * @ClassName: ColorFilterImageView
  * @Description: 实现图像根据按下抬起动作变化颜色
- * @author hnclca
  * @date 2016-02-26
- *
  */
+@SuppressWarnings("ALL")
 public class ColorFilterImageView extends ImageView implements OnTouchListener {
+
     public ColorFilterImageView(Context context) {
         this(context, null, 0);
     }

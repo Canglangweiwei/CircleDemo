@@ -12,6 +12,7 @@ import com.yiw.circledemo.widgets.videolist.VideoListGlideModule;
  */
 public abstract class ProgressTarget<T, Z> extends WrappingTarget<Z> implements
         VideoListGlideModule.UIProgressListener {
+
     private T model;
     private boolean ignoreProgress = true;
 

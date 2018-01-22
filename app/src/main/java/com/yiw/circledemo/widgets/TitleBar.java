@@ -19,7 +19,9 @@ import java.util.LinkedList;
  * 创建人：Bob
  * 创建时间：2015/9/25 11:36
  */
+@SuppressWarnings("ALL")
 public class TitleBar extends ViewGroup implements View.OnClickListener {
+
     private static final int DEFAULT_MAIN_TEXT_SIZE = 18;
     private static final int DEFAULT_SUB_TEXT_SIZE = 12;
     private static final int DEFAULT_ACTION_TEXT_SIZE = 15;
@@ -259,6 +261,7 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
 
     /**
      * Adds a list of {@link Action}s.
+     *
      * @param actionList the actions to add
      */
     public void addActions(ActionList actionList) {
@@ -270,6 +273,7 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
 
     /**
      * Adds a new {@link Action}.
+     *
      * @param action the action to add
      */
     public View addAction(Action action) {
@@ -279,8 +283,9 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
 
     /**
      * Adds a new {@link Action} at the specified index.
+     *
      * @param action the action to add
-     * @param index the position at which to add the action
+     * @param index  the position at which to add the action
      */
     public View addAction(Action action, int index) {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
@@ -299,6 +304,7 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
 
     /**
      * Remove a action from the action bar.
+     *
      * @param index position of action to remove
      */
     public void removeActionAt(int index) {
@@ -307,6 +313,7 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
 
     /**
      * Remove a action from the action bar.
+     *
      * @param action The action to remove
      */
     public void removeAction(Action action) {
@@ -324,6 +331,7 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
 
     /**
      * Returns the number of actions currently registered with the action bar.
+     *
      * @return action count
      */
     public int getActionCount() {
@@ -332,11 +340,12 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
 
     /**
      * Inflates a {@link View} with the given {@link Action}.
+     *
      * @param action the action to inflate
      * @return a view
      */
     private View inflateAction(Action action) {
-        View view = null;
+        View view;
         if (TextUtils.isEmpty(action.getText())) {
             ImageView img = new ImageView(getContext());
             img.setImageResource(action.getDrawable());
@@ -362,7 +371,7 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
         return mLeftText;
     }
 
-    public TextView getTitleView(){
+    public TextView getTitleView() {
         return mCenterText;
     }
 
@@ -420,7 +429,6 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
     /**
      * 计算状态栏高度高度
      * getStatusBarHeight
-     * @return
      */
     public static int getStatusBarHeight() {
         return getInternalDimensionSize(Resources.getSystem(), STATUS_BAR_HEIGHT_RES_NAME);
@@ -439,8 +447,8 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
     /**
      * A {@link LinkedList} that holds a list of {@link Action}s.
      */
-    @SuppressWarnings("serial")
     public static class ActionList extends LinkedList<Action> {
+
     }
 
     /**
@@ -449,11 +457,14 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
      */
     public interface Action {
         String getText();
+
         int getDrawable();
+
         void performAction(View view);
     }
 
     public static abstract class ImageAction implements Action {
+
         private int mDrawable;
 
         public ImageAction(int drawable) {
@@ -472,6 +483,7 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
     }
 
     public static abstract class TextAction implements Action {
+
         final private String mText;
 
         public TextAction(String text) {
@@ -488,5 +500,4 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
             return mText;
         }
     }
-
 }

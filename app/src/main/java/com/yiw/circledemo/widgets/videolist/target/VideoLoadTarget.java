@@ -17,7 +17,6 @@ import java.io.File;
  */
 public class VideoLoadTarget extends ViewTarget<TextureVideoView, File> implements TextureVideoView.MediaPlayerCallback {
 
-
     private final VideoLoadMvpView mLoadMvpView;
 
     public VideoLoadTarget(VideoLoadMvpView mvpView) {
@@ -46,7 +45,7 @@ public class VideoLoadTarget extends ViewTarget<TextureVideoView, File> implemen
     public void onPrepared(MediaPlayer mp) {
         mLoadMvpView.videoPrepared(mp);
         // it is better call when video rendering start, but this flag is added in API 17
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
             mLoadMvpView.videoBeginning();
         }
     }

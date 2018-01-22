@@ -10,6 +10,7 @@ import java.io.File;
  * @author Wayne
  */
 public class VideoProgressTarget extends ProgressTarget<String, File> {
+
     private final CircularProgressBar progress;
 
     public VideoProgressTarget(VideoLoadTarget target, CircularProgressBar progress) {

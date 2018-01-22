@@ -4,13 +4,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-
 /**
  * This class is an API for {@link com.waynell.videolist.visibility.calculator.ListItemsVisibilityCalculator}
  * Using this class is can access all the data from RecyclerView
  *
  * @author Wayne
  */
+@SuppressWarnings("ALL")
 public class RecyclerViewItemPositionGetter implements ItemsPositionGetter {
 
     private LinearLayoutManager mLayoutManager;

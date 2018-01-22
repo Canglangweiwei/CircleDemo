@@ -20,11 +20,8 @@ import com.yiw.circledemo.spannable.SpannableClickable;
 
 import java.util.List;
 
-/**
- * Created by yiwei on 16/7/9.
- */
-public class PraiseListView extends TextView{
-
+@SuppressWarnings("ALL")
+public class PraiseListView extends TextView {
 
     private int itemColor;
     private int itemSelectorColor;
@@ -56,11 +53,10 @@ public class PraiseListView extends TextView{
     private void initAttrs(AttributeSet attrs) {
         TypedArray typedArray = getContext().getTheme().obtainStyledAttributes(attrs, R.styleable.PraiseListView, 0, 0);
         try {
-            //textview的默认颜色
+            // textview的默认颜色
             itemColor = typedArray.getColor(R.styleable.PraiseListView_item_color, getResources().getColor(R.color.praise_item_default));
             itemSelectorColor = typedArray.getColor(R.styleable.PraiseListView_item_selector_color, getResources().getColor(R.color.praise_item_selector_default));
-
-        }finally {
+        } finally {
             typedArray.recycle();
         }
     }
@@ -68,49 +64,47 @@ public class PraiseListView extends TextView{
     public List<FavortItem> getDatas() {
         return datas;
     }
+
     public void setDatas(List<FavortItem> datas) {
         this.datas = datas;
         notifyDataSetChanged();
     }
 
-
-    public void notifyDataSetChanged(){
+    public void notifyDataSetChanged() {
         SpannableStringBuilder builder = new SpannableStringBuilder();
-        if(datas != null && datas.size() > 0){
-            //添加点赞图标
+        if (datas != null && datas.size() > 0) {
+            // 添加点赞图标
             builder.append(setImageSpan());
             FavortItem item = null;
-            for (int i=0; i<datas.size(); i++){
+            for (int i = 0; i < datas.size(); i++) {
                 item = datas.get(i);
-                if(item != null){
+                if (item != null) {
                     builder.append(setClickableSpan(item.getUser().getName(), i));
-                    if(i != datas.size()-1){
+                    if (i != datas.size() - 1) {
                         builder.append(", ");
                     }
                 }
             }
         }
-
         setText(builder);
         setMovementMethod(new CircleMovementMethod(itemSelectorColor));
     }
 
-
-    private SpannableString setImageSpan(){
+    private SpannableString setImageSpan() {
         String text = "  ";
         SpannableString imgSpanText = new SpannableString(text);
         imgSpanText.setSpan(new ImageSpan(MyApplication.getContext(), R.drawable.icon_praise, DynamicDrawableSpan.ALIGN_BASELINE),
-                0 , 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return imgSpanText;
     }
 
     @NonNull
     private SpannableString setClickableSpan(String textStr, final int position) {
         SpannableString subjectSpanText = new SpannableString(textStr);
-        subjectSpanText.setSpan(new SpannableClickable(itemColor){
+        subjectSpanText.setSpan(new SpannableClickable(itemColor) {
                                     @Override
                                     public void onClick(View widget) {
-                                        if(onItemClickListener!=null){
+                                        if (onItemClickListener != null) {
                                             onItemClickListener.onClick(position);
                                         }
                                     }
@@ -119,8 +113,7 @@ public class PraiseListView extends TextView{
         return subjectSpanText;
     }
 
-
-    public static interface OnItemClickListener{
-        public void onClick(int position);
+    public interface OnItemClickListener {
+        void onClick(int position);
     }
 }

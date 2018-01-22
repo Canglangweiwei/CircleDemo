@@ -2,13 +2,13 @@ package com.yiw.circledemo.widgets.videolist.visibility.items;
 
 import android.view.View;
 
-
 /**
  * A general interface for list items.
  * This interface is used by {@link com.waynell.videolist.visibility.calculator.ListItemsVisibilityCalculator}
  *
  * @author Wayne
  */
+@SuppressWarnings("ALL")
 public interface ListItem {
 
     /**

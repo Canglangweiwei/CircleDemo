@@ -1,6 +1,5 @@
 package com.yiw.circledemo.widgets.videolist.visibility.scroll;
 
-
 import com.yiw.circledemo.widgets.videolist.visibility.items.ListItem;
 
 /**
@@ -9,10 +8,10 @@ import com.yiw.circledemo.widgets.videolist.visibility.items.ListItem;
  *
  * @author Wayne
  */
+@SuppressWarnings("ALL")
 public interface ItemsProvider {
 
     ListItem getListItem(int position);
 
     int listItemSize();
-
 }

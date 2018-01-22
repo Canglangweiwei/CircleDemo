@@ -80,7 +80,6 @@ public class MainActivity extends YWActivity implements CircleContract.View, Eas
     private UpLoadDialog uploadDialog;
     private SwipeRefreshLayout.OnRefreshListener refreshListener;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,6 +122,7 @@ public class MainActivity extends YWActivity implements CircleContract.View, Eas
     }
 
     private void initView() {
+
         initTitle();
         initUploadDialog();
 
@@ -213,8 +213,8 @@ public class MainActivity extends YWActivity implements CircleContract.View, Eas
         TextView textView = (TextView) titleBar.addAction(new TitleBar.TextAction("发布视频") {
             @Override
             public void performAction(View view) {
-                //Toast.makeText(MainActivity.this, "敬请期待...", Toast.LENGTH_SHORT).show();
-                QPManager.startRecordActivity(MainActivity.this);
+                Toast.makeText(MainActivity.this, "敬请期待...", Toast.LENGTH_SHORT).show();
+//                QPManager.startRecordActivity(MainActivity.this);
             }
         });
         textView.setTextColor(getResources().getColor(R.color.white));
@@ -232,7 +232,7 @@ public class MainActivity extends YWActivity implements CircleContract.View, Eas
                 int statusBarH = getStatusBarHeight();//状态栏高度
                 int screenH = bodyLayout.getRootView().getHeight();
                 if (r.top != statusBarH) {
-                    //在这个demo中r.top代表的是状态栏高度，在沉浸式状态栏时r.top＝0，通过getStatusBarHeight获取状态栏高度
+                    // 在这个demo中r.top代表的是状态栏高度，在沉浸式状态栏时r.top＝0，通过getStatusBarHeight获取状态栏高度
                     r.top = statusBarH;
                 }
                 int keyboardH = screenH - (r.bottom - r.top);
@@ -276,7 +276,6 @@ public class MainActivity extends YWActivity implements CircleContract.View, Eas
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
             if (edittextbody != null && edittextbody.getVisibility() == View.VISIBLE) {
-                //edittextbody.setVisibility(View.GONE);
                 updateEditTextBodyVisible(View.GONE, null);
                 return true;
             }
@@ -291,7 +290,6 @@ public class MainActivity extends YWActivity implements CircleContract.View, Eas
             if (circleId.equals(circleItems.get(i).getId())) {
                 circleItems.remove(i);
                 circleAdapter.notifyDataSetChanged();
-                //circleAdapter.notifyItemRemoved(i+1);
                 return;
             }
         }
@@ -303,7 +301,6 @@ public class MainActivity extends YWActivity implements CircleContract.View, Eas
             CircleItem item = (CircleItem) circleAdapter.getDatas().get(circlePosition);
             item.getFavorters().add(addItem);
             circleAdapter.notifyDataSetChanged();
-            //circleAdapter.notifyItemChanged(circlePosition+1);
         }
     }
 
@@ -315,7 +312,6 @@ public class MainActivity extends YWActivity implements CircleContract.View, Eas
             if (favortId.equals(items.get(i).getId())) {
                 items.remove(i);
                 circleAdapter.notifyDataSetChanged();
-                //circleAdapter.notifyItemChanged(circlePosition+1);
                 return;
             }
         }
@@ -327,9 +323,8 @@ public class MainActivity extends YWActivity implements CircleContract.View, Eas
             CircleItem item = (CircleItem) circleAdapter.getDatas().get(circlePosition);
             item.getComments().add(addItem);
             circleAdapter.notifyDataSetChanged();
-            //circleAdapter.notifyItemChanged(circlePosition+1);
         }
-        //清空评论文本
+        // 清空评论文本
         editText.setText("");
     }
 
@@ -341,7 +336,6 @@ public class MainActivity extends YWActivity implements CircleContract.View, Eas
             if (commentId.equals(items.get(i).getId())) {
                 items.remove(i);
                 circleAdapter.notifyDataSetChanged();
-                //circleAdapter.notifyItemChanged(circlePosition+1);
                 return;
             }
         }
@@ -354,10 +348,10 @@ public class MainActivity extends YWActivity implements CircleContract.View, Eas
         measureCircleItemHighAndCommentItemOffset(commentConfig);
         if (View.VISIBLE == visibility) {
             editText.requestFocus();
-            //弹出键盘
+            // 弹出键盘
             CommonUtils.showSoftInput(editText.getContext(), editText);
         } else if (View.GONE == visibility) {
-            //隐藏键盘
+            // 隐藏键盘
             CommonUtils.hideSoftInput(editText.getContext(), editText);
         }
     }
@@ -404,7 +398,7 @@ public class MainActivity extends YWActivity implements CircleContract.View, Eas
         //int listviewOffset = mScreenHeight - mSelectCircleItemH - mCurrentKeyboardH - mEditTextBodyHeight;
         int listviewOffset = screenHeight - selectCircleItemH - currentKeyboardH - editTextBodyHeight - titleBar.getHeight();
         if (commentConfig.commentType == CommentConfig.Type.REPLY) {
-            //回复评论的情况
+            // 回复评论的情况
             listviewOffset = listviewOffset + selectCommentItemOffset;
         }
         Log.i(TAG, "listviewOffset : " + listviewOffset);
@@ -466,7 +460,7 @@ public class MainActivity extends YWActivity implements CircleContract.View, Eas
                 public void uploadComplet(String videoUrl, String imageUrl, String message) {
                     uploadDialog.hide();
                     Toast.makeText(MainActivity.this, "上传成功...", Toast.LENGTH_LONG).show();
-                    //将新拍摄的video刷新到列表中
+                    // 将新拍摄的video刷新到列表中
                     circleAdapter.getDatas().add(0, DatasUtil.createVideoItem(videoFile, thum[0]));
                     circleAdapter.notifyDataSetChanged();
                 }
@@ -495,7 +489,6 @@ public class MainActivity extends YWActivity implements CircleContract.View, Eas
             /*QupaiService qupaiService = QupaiManager
                     .getQupaiService(MainActivity.this);
             qupaiService.deleteDraft(getApplicationContext(),data);*/
-
         } else {
             if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(MainActivity.this, "RESULT_CANCELED", Toast.LENGTH_LONG).show();
@@ -520,20 +513,11 @@ public class MainActivity extends YWActivity implements CircleContract.View, Eas
 
     @Override
     public void onPermissionsGranted(int requestCode, List<String> perms) {
-        //Toast.makeText(this, "onPermissionsGranted  requestCode: " + requestCode , Toast.LENGTH_LONG).show();
+
     }
 
     @Override
     public void onPermissionsDenied(int requestCode, List<String> perms) {
         Toast.makeText(this, "您拒绝了相关权限，可能会导致相关功能不可用", Toast.LENGTH_LONG).show();
-        /*if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
-            new AppSettingsDialog.Builder(this, getString(R.string.rationale_ask_again))
-                    .setTitle(getString(R.string.title_settings_dialog))
-                    .setPositiveButton(getString(R.string.setting))
-                    .setNegativeButton(getString(R.string.cancel), null *//* click listener *//*)
-                    .setRequestCode(RC_SETTINGS_SCREEN)
-                    .build()
-                    .show();
-        }*/
     }
 }

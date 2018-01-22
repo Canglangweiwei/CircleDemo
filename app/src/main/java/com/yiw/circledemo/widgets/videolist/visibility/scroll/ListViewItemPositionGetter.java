@@ -9,6 +9,7 @@ import android.widget.ListView;
  *
  * @author Wayne
  */
+@SuppressWarnings("ALL")
 public class ListViewItemPositionGetter implements ItemsPositionGetter {
 
     private final ListView mListView;

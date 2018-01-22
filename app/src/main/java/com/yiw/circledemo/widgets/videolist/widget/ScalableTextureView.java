@@ -10,6 +10,7 @@ import android.view.TextureView;
 /**
  * This extension of {@link TextureView} is created to isolate scaling of this view.
  */
+@SuppressWarnings("ALL")
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public abstract class ScalableTextureView extends TextureView {
 
@@ -213,6 +214,7 @@ public abstract class ScalableTextureView extends TextureView {
 
     /**
      * Use it to animate TextureView content x position
+     *
      * @param x
      */
     public final void setContentX(float x) {
@@ -222,6 +224,7 @@ public abstract class ScalableTextureView extends TextureView {
 
     /**
      * Use it to animate TextureView content x position
+     *
      * @param y
      */
     public final void setContentY(float y) {
@@ -284,5 +287,4 @@ public abstract class ScalableTextureView extends TextureView {
     protected final Integer getContentWidth() {
         return mContentWidth;
     }
-
 }

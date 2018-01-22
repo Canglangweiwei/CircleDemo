@@ -2,7 +2,6 @@ package com.yiw.circledemo.widgets.videolist.visibility.scroll;
 
 import android.view.View;
 
-
 /**
  * This class detects a {@link ScrollDirection} ListView is scrolled to.
  * And then call {@link OnDetectScrollListener#onScrollDirectionChanged(ScrollDirection)}
@@ -54,14 +53,14 @@ public class ScrollDirectionDetector {
     }
 
     private void onScrollDown() {
-        if(mOldScrollDirection != ScrollDirection.DOWN){
+        if (mOldScrollDirection != ScrollDirection.DOWN) {
             mOldScrollDirection = ScrollDirection.DOWN;
             mOnDetectScrollListener.onScrollDirectionChanged(ScrollDirection.DOWN);
         }
     }
 
     private void onScrollUp() {
-        if(mOldScrollDirection != ScrollDirection.UP) {
+        if (mOldScrollDirection != ScrollDirection.UP) {
             mOldScrollDirection = ScrollDirection.UP;
             mOnDetectScrollListener.onScrollDirectionChanged(ScrollDirection.UP);
         }

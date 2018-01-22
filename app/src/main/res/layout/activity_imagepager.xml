@@ -12,9 +12,8 @@
         android:id="@+id/guideGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:orientation="horizontal"></LinearLayout>
-
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal" />
 </RelativeLayout>
